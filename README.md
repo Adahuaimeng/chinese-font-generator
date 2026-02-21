@@ -1,7 +1,8 @@
-# chinese-font-generator
+# chinese-font-generator for TFT_eSPI
 常用6000字中文软字库生成
 
 本字库生成仅包含GB2312字库内汉字（因为.py里面unicode_start = 0x4E00  unicode_end = 0x9FA5,作者弄这个库时只要GB2312里面的中文）
+仅在ESP32-devkit上验证过，ST7789驱动的240*240屏
 
 使用步骤
 
