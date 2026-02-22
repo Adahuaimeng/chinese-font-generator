@@ -72,7 +72,7 @@ python tools/generate_font.py "字体文件路径" 12（字号） FangSong（字
 
 begin()         初始化（始终返回true）           font.begin();
 
-setTFT(&tft)    绑定TFT对象                     font.setTFT(&tft);
+setTFT(&tft)    绑定TFT对象，必须调用            font.setTFT(&tft);
 
 2.绘制函数（主要功能函数）
 
@@ -84,19 +84,19 @@ drawChinese(x,y,ch,color)                                                 绘制
 
 drawStringWrap(x,y,str,color,maxWidth,lineHeight=0)                       自动换行绘制字符串                 maxWidth：最大宽度；lineHeight：行高(0=自动)
 
-drawAscii(x,y,c,color)                                                    绘制单个ASCII字符                  c：字符
+drawStringCenter(y,str,color,ceterX)                                      基于centerX水平居中（单行）                     
 
-drawStringTruncated(x,y,str,color,maxWidth)                               截断绘制(超出部分不显示)            maxWidth：最大宽度
+drawStringCenterWrap(y,str,color,centerX,maxWidth,lineHeight=0)           基于CenterX居中，在maxWidth范围内自动换行，每行都居中                               
 
-3.信息获取函数
+3.辅助函数
 
 函数                                        返回值                 说明
 
-getSize()                                  字号（如16）            获取字体高度
+getCharWidth                                 int            返回字体宽度
 
-getMaxCharsPerLine()                      每行最大字符数           基于240宽度计算
+getCharHeight()                              int            返回字体高度
 
-getCharWidth(str,&bytesConsumed)            字符宽度              返回像素宽度，可选输出字节数       
+getStringWidth(str)                          int             计算字符串像素宽度
 
 常见问题
 
@@ -120,69 +120,5 @@ getCharWidth(str,&bytesConsumed)            字符宽度              返回像�
 
 当然，作者没做压缩简化，毕竟作者当时只需要使用12号字，这个通用生成库是顺手改的，不过这一版解决了初版的栈溢出问题
 
-
-生成字库后使用示例
-
-
-#include <TFT_eSPI.h>  // 或其他TFT库
-
-#include <GB2312_FangSong_16.h>  // 生成的字库头文件
-
-TFT_eSPI tft = TFT_eSPI();
-
-// 自动生成的对象名：字体名驼峰化 + 字号
-
-// 如：FangSong_16, KaiTi_24, HeiTi_32 等
-
-void setup() {
-
-    tft.init();
-    
-    tft.setRotation(0);
-    
-    tft.fillScreen(TFT_BLACK);
-    
-    // 1. 初始化字库（可选，begin始终返回true）
-    FangSong_16.begin();
-    
-    // 2. 绑定TFT对象（必须！）
-    FangSong_16.setTFT(&tft);
-    
-    // ========== 基础绘制 ==========
-    
-    // 绘制混合中英文字符串
-    FangSong_16.drawString(10, 10, "Hello 世界", TFT_WHITE);
-    
-    // 绘制纯中文
-    FangSong_16.drawString(10, 30, "你好中国", TFT_GREEN);
-    
-    // ========== 自动换行 ==========
-    
-    // 方式1：自动换行，行高自动（字号+4）
-    FangSong_16.drawStringWrap(10, 50, "这是一段很长的中文文本，会自动换行显示", TFT_YELLOW, 100);  // maxWidth=100像素
-    
-    // 方式2：指定行高
-    FangSong_16.drawStringWrap(10, 120, 
-        "第一行\n第二行",  // 注意：不会处理\n，需要用maxWidth控制
-        TFT_CYAN, 120, 20);  // 行高20像素
-    
-    // ========== 截断显示 ==========
-    
-    // 只显示能容纳的部分，超出不显示
-    FangSong_16.drawStringTruncated(10, 180, "这段文字太长了会被截断", TFT_MAGENTA, 80);  // 只显示80像素宽度
-    
-    // ========== 获取信息 ==========
-    
-    int fontSize = FangSong_16.getSize();           // 返回 16
-    int maxChars = FangSong_16.getMaxCharsPerLine(); // 返回 15（240/16）
-    
-    // 计算特定字符宽度
-    int bytesUsed;
-    int width = FangSong_16.getCharWidth("中", &bytesUsed); 
-    // width = 16, bytesUsed = 3
-    
-    int asciiWidth = FangSong_16.getCharWidth("A", &bytesUsed);
-    // asciiWidth = 6, bytesUsed = 1
-}
 
 void loop() {}
