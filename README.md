@@ -1,4 +1,9 @@
 # chinese-font-generator for TFT_eSPI
+
+2026/5/3  1.02版本 新增了部分字符生成程序与所有有效字符生成程序
+
+部分字符生成程序生成指令示例：python tools/generate_font_partial.py "C:/Windows/Fonts/simfang.ttf" 16 FangSong --chars "你需要生成的部分字符"
+
 常用6000字中文软字库生成
 
 本字库生成仅包含GB2312字库内汉字（因为.py里面unicode_start = 0x4E00  unicode_end = 0x9FA5,作者弄这个库时只要GB2312里面的中文）
