@@ -4,14 +4,13 @@
 
 部分字符生成程序生成指令示例：python tools/generate_font_partial.py "C:/Windows/Fonts/simfang.ttf" 16 FangSong --chars "你需要生成的部分字符"
 
-生成所有有效字符的程序指令与常用6000字一致，示例：python tools/generate_font_full.py "C:/Windows/Fonts/simfang.ttf" 16 FangSong
+生成所有有效字符的程序指令示例：python tools/generate_font_full.py "C:/Windows/Fonts/simfang.ttf" 16 FangSong
 
-常用6000字中文软字库生成
+2026/5/8 1.03版本 修复了程序中的重定义问题，做了一定优化，同时移除了6000字生成版本，因为作者发现里面含有大量无效数据，经思考认为full与part版本已足够使用，在使用part生成时，请避免ASCII字符，作者未专门做适配，可能可以生成，但可能存在未知错误
 
-本字库生成仅包含GB2312字库内汉字（因为.py里面unicode_start = 0x4E00  unicode_end = 0x9FA5,作者弄这个库时只要GB2312里面的中文）
-仅在ESP32-devkit上验证过，ST7789驱动的240*240屏
+已在ESP32-devkit/ESP32S3/ESP32C3上验证过，ST7789驱动的240*240屏
 
-使用步骤
+使用步骤(1.01版本，如果后面版本有改动会专门说明)
 
 一，确认python安装
 
