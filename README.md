@@ -1,4 +1,4 @@
-# chinese-font-generator for TFT_eSPI
+# 适配TFT库的中文软字库生成chinese-font-generator for TFT_eSPI
 
 2026/5/3  1.02版本 新增了部分字符生成程序与所有有效字符生成程序，但本版本依旧无优化，生成文件无优化压缩，请依据现实硬件条件使用
 
